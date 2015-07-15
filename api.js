@@ -3,10 +3,12 @@
 const Unauthorized = require('http-errors').Unauthorized;
 const Foxx = require('org/arangodb/foxx');
 const users = require('./users');
+const schemas = require('./schemas');
+const sessions = applicationContext.dependencies.sessions.sessionStorage;
 const ctrl = new Foxx.Controller(applicationContext);
 
 ctrl.activateSessions({
-  sessionStorage: applicationContext.dependencies.sessions.sessionStorage,
+  sessionStorage: sessions,
   header: true
 });
 
@@ -49,7 +51,7 @@ ctrl.delete('/:userId', function (req, res) {
 ctrl.put('/:userId/authenticate', function (req, res) {
   const userId = req.params('userId');
   const user = user.get(userId);
-  ...
+  // TODO verify password
   res.status(200);
   res.json(user.get('userData'));
 })
@@ -62,7 +64,8 @@ ctrl.put('/:userId/change-password', function (req, res) {
     throw new Unauthorized();
   }
   const user = users.get(userId);
-  ...
+  // TODO change password
+  user.save();
   res.status(204);
 })
 .bodyParam('passwords', schemas.passwordChange)
