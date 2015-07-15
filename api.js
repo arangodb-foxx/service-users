@@ -44,6 +44,7 @@ ctrl.delete('/:userId', function (req, res) {
   }
   const user = users.get(userId);
   user.delete();
+  req.session.delete();
   res.status(204);
 })
 .pathParam('userId', schemas.userId);
