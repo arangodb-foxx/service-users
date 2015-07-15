@@ -1,0 +1,17 @@
+{
+  "name": "user-service",
+  "version": "0.0.0",
+  "author": "ArangoDB GmbH",
+  "license": "Apache License, Version 2.0",
+  "description": "ArangoDB User-Service",
+  "defaultDocument": "",
+  "controllers": "api.js",
+  "scripts": {
+  },
+  "configuration": {
+  },
+  "dependencies": {
+    "sessions": "sessions-remote:^1.0.0",
+    "users": "users:^2.0.0"
+  }
+}
