@@ -4,7 +4,7 @@ const NotFound = require('http-errors').NotFound;
 const users = applicationContext.dependencies.users.userStorage;
 
 module.exports = {
-  byId(id) {
+  get(id) {
     try {
       return users.get(id);
     } catch (e) {
