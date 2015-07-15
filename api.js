@@ -51,7 +51,7 @@ ctrl.delete('/:userId', function (req, res) {
 
 ctrl.put('/:userId/authenticate', function (req, res) {
   const userId = req.params('userId');
-  const user = user.get(userId);
+  const user = users.get(userId);
   // TODO verify password
   res.status(200);
   res.json(user.get('userData'));
