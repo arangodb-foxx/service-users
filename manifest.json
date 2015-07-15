@@ -1,13 +1,12 @@
 {
   "name": "user-service",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "author": "ArangoDB GmbH",
   "license": "Apache License, Version 2.0",
   "description": "ArangoDB User-Service",
   "defaultDocument": "",
   "controllers": "api.js",
-  "scripts": {
-  },
+  "scripts": {},
   "configuration": {
     "minPasswordIterations": {
       "default": 100000,
