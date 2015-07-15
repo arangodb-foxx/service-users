@@ -50,9 +50,12 @@ ctrl.delete('/:userId', function (req, res) {
 .pathParam('userId', schemas.userId);
 
 ctrl.put('/:userId/authenticate', function (req, res) {
-  const userId = req.params('userId');
-  const user = users.get(userId);
-  // TODO verify password
+  const user = users.get(req.params('userId'));
+  const password = req.params('password').password;
+  const valid = util.verifyPassword(user.get('authData'), password);
+  if (!valid) {
+    throw new Unauthorized();
+  }
   res.status(200);
   res.json(user.get('userData'));
 })
@@ -65,7 +68,16 @@ ctrl.put('/:userId/change-password', function (req, res) {
     throw new Unauthorized();
   }
   const user = users.get(userId);
-  // TODO change password
+  const passwordChange = req.params('passwordChange');
+  const authData = user.get('authData');
+  if (authData && Object.keys(authData).length) {
+    // Allow setting a password if user has no password, yet
+    const valid = util.verifyPassword(authData, passwordChange.old);
+    if (!valid) {
+      throw new Unauthorized();
+    }
+  }
+  user.set('authData', util.hashPassword(passwordChange.new));
   user.save();
   res.status(204);
 })

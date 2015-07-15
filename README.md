@@ -1,5 +1,11 @@
 # ArangoDB User-Service
 
+## Configuration
+
+* **minPasswordIterations**: *integer* (Default: `100000`)
+
+  Minimum number of iterations when hashing passwords with PBKDF2.
+
 ## Dependencies
 
 * **sessions**: `sessions-remote:^1.0.0`

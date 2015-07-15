@@ -9,6 +9,11 @@
   "scripts": {
   },
   "configuration": {
+    "minPasswordIterations": {
+      "default": 100000,
+      "type": "integer",
+      "description": "Minimum number of iterations when hashing passwords with PBKDF2."
+    }
   },
   "dependencies": {
     "sessions": "sessions-remote:^1.0.0",
