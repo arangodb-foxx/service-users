@@ -11,7 +11,7 @@ const ctrl = new Foxx.Controller(applicationContext);
 ctrl.activateSessions({
   sessionStorage: sessions,
   header: true,
-  cookie: true
+  param: true
 });
 
 ctrl.get('/:userId', function (req, res) {
