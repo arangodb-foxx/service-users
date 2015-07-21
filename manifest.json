@@ -8,6 +8,11 @@
   "controllers": "api.js",
   "scripts": {},
   "configuration": {
+    "sessionsRoot": {
+      "default": "/sessions",
+      "type": "string",
+      "description": "Root URL of remote REST-API for sessions."
+    },
     "minPasswordIterations": {
       "default": 100000,
       "type": "integer",
@@ -15,7 +20,6 @@
     }
   },
   "dependencies": {
-    "sessions": "sessions-remote:^1.0.0",
     "users": "users:^2.0.0"
   }
 }

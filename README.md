@@ -2,15 +2,15 @@
 
 ## Configuration
 
+* **sessionsRoot**: *string* (Default: `"/sessions"`)
+
+  The base URL of the remote REST API that stores the sessions.
+
 * **minPasswordIterations**: *integer* (Default: `100000`)
 
   Minimum number of iterations when hashing passwords with PBKDF2.
 
 ## Dependencies
-
-* **sessions**: `sessions-remote:^1.0.0`
-
-  Session storage to resolve session IDs with.
 
 * **users**: `users:^2.0.0`
 

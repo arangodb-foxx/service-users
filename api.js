@@ -5,12 +5,13 @@ const Foxx = require('org/arangodb/foxx');
 const users = require('./users');
 const schemas = require('./schemas');
 const util = require('./util');
-const sessions = applicationContext.dependencies.sessions.sessionStorage;
+const sessions = require('./sessions');
 const ctrl = new Foxx.Controller(applicationContext);
 
 ctrl.activateSessions({
   sessionStorage: sessions,
-  header: true
+  header: true,
+  cookie: true
 });
 
 ctrl.get('/:userId', function (req, res) {
