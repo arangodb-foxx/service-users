@@ -4,6 +4,7 @@ const Unauthorized = require('http-errors').Unauthorized;
 const Foxx = require('org/arangodb/foxx');
 const users = require('./users');
 const schemas = require('./schemas');
+const util = require('./util');
 const sessions = applicationContext.dependencies.sessions.sessionStorage;
 const ctrl = new Foxx.Controller(applicationContext);
 
