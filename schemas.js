@@ -11,7 +11,7 @@ exports.password = joi.object().required()
 .description('Password.');
 exports.passwordChange = joi.object().required()
 .keys({
-  old: joi.string().required(),
-  new: joi.string().required()
+  password: joi.string().required(),
+  newPassword: joi.string().required()
 })
 .description('Old and new password.');

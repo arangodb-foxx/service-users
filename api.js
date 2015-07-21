@@ -70,16 +70,16 @@ ctrl.put('/:userId/change-password', function (req, res) {
     throw new Unauthorized();
   }
   const user = users.get(userId);
-  const passwordChange = req.params('passwordChange');
+  const passwords = req.params('passwords');
   const authData = user.get('authData');
   if (authData && Object.keys(authData).length) {
     // Allow setting a password if user has no password, yet
-    const valid = util.verifyPassword(authData, passwordChange.old);
+    const valid = util.verifyPassword(authData, passwords.password);
     if (!valid) {
       throw new Unauthorized();
     }
   }
-  user.set('authData', util.hashPassword(passwordChange.new));
+  user.set('authData', util.hashPassword(passwords.newPassword));
   user.save();
   res.status(204);
 })
