@@ -6,15 +6,29 @@ const users = require('./users');
 const schemas = require('./schemas');
 const util = require('./util');
 const sessions = require('./sessions');
-const ctrl = new Foxx.Controller(applicationContext);
+const authedApi = new Foxx.Controller(applicationContext);
+const publicApi = new Foxx.Controller(applicationContext);
 
-ctrl.activateSessions({
+publicApi.put('/:userId/authenticate', function (req, res) {
+  const user = users.get(req.params('userId'));
+  const password = req.params('password').password;
+  const valid = util.verifyPassword(user.get('authData'), password);
+  if (!valid) {
+    throw new Unauthorized();
+  }
+  res.status(200);
+  res.json(user.get('userData'));
+})
+.bodyParam('password', schemas.password)
+.pathParam('userId', schemas.userId);
+
+authedApi.activateSessions({
   sessionStorage: sessions,
   header: true,
   param: true
 });
 
-ctrl.get('/:userId', function (req, res) {
+authedApi.get('/:userId', function (req, res) {
   const userId = req.params('userId');
   if (!req.session || req.session.get('uid') !== userId) {
     throw new Unauthorized();
@@ -25,7 +39,7 @@ ctrl.get('/:userId', function (req, res) {
 })
 .pathParam('userId', schemas.userId);
 
-ctrl.put('/:userId', function (req, res) {
+authedApi.put('/:userId', function (req, res) {
   const userId = req.params('userId');
   if (!req.session || req.session.get('uid') !== userId) {
     throw new Unauthorized();
@@ -39,7 +53,7 @@ ctrl.put('/:userId', function (req, res) {
 .bodyParam('userData', schemas.userData)
 .pathParam('userId', schemas.userId);
 
-ctrl.delete('/:userId', function (req, res) {
+authedApi.delete('/:userId', function (req, res) {
   const userId = req.params('userId');
   if (!req.session || req.session.get('uid') !== userId) {
     throw new Unauthorized();
@@ -51,20 +65,7 @@ ctrl.delete('/:userId', function (req, res) {
 })
 .pathParam('userId', schemas.userId);
 
-ctrl.put('/:userId/authenticate', function (req, res) {
-  const user = users.get(req.params('userId'));
-  const password = req.params('password').password;
-  const valid = util.verifyPassword(user.get('authData'), password);
-  if (!valid) {
-    throw new Unauthorized();
-  }
-  res.status(200);
-  res.json(user.get('userData'));
-})
-.bodyParam('password', schemas.password)
-.pathParam('userId', schemas.userId);
-
-ctrl.put('/:userId/change-password', function (req, res) {
+authedApi.put('/:userId/change-password', function (req, res) {
   const userId = req.params('userId');
   if (!req.session || req.session.get('uid') !== userId) {
     throw new Unauthorized();
