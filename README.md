@@ -12,7 +12,7 @@
 
 ## Dependencies
 
-* **users**: `users:^2.0.0`
+* **users-local**: `users-local:^2.0.0`
 
   User storage that stores and manages user accounts.
 
